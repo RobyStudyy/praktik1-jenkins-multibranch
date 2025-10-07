@@ -33,36 +33,34 @@ pipeline {
             }
         }
     }
-}
 
-post {
-    success {
-        script {
-            def payload = [
-                content: "✅ Build SUCCESS on `${env.BRANCH_NAME}`\n🔗 URL: ${env.BUILD_URL}"
-            ]
-
-            httpRequest(
-                httpMode: 'POST',
-                contentType: 'APPLICATION_JSON',
-                requestBody: groovy.json.JsonOutput.toJson(payload),
-                url: 'https://discordapp.com/api/webhooks/1425086425749000214/sK2J8rThX3AkKAioDcVVax2ANIJ-Mg6CZfSkbXofOVNeDeO_iPxXhaUp5ooRM0Bv3wKX'
-            )
+    post {
+        success {
+            script {
+                def payload = [
+                    content: "✅ Build SUCCESS on `${env.BRANCH_NAME}`\n🔗 URL: ${env.BUILD_URL}"
+                ]
+                httpRequest(
+                    httpMode: 'POST',
+                    contentType: 'APPLICATION_JSON',
+                    requestBody: groovy.json.JsonOutput.toJson(payload),
+                    url: 'https://discordapp.com/api/webhooks/1425086425749000214/sK2J8rThX3AkKAioDcVVax2ANIJ-Mg6CZfSkbXofOVNeDeO_iPxXhaUp5ooRM0Bv3wKX'
+                )
+            }
         }
-    }
 
-    failure {
-        script {
-            def payload = [
-                content: "❌ Build FAILED on `${env.BRANCH_NAME}`\n🔗 URL: ${env.BUILD_URL}"
-            ]
-
-            httpRequest(
-                httpMode: 'POST',
-                contentType: 'APPLICATION_JSON',
-                requestBody: groovy.json.JsonOutput.toJson(payload),
-                url: 'https://discordapp.com/api/webhooks/1425086425749000214/sK2J8rThX3AkKAioDcVVax2ANIJ-Mg6CZfSkbXofOVNeDeO_iPxXhaUp5ooRM0Bv3wKX'
-            )
+        failure {
+            script {
+                def payload = [
+                    content: "❌ Build FAILED on `${env.BRANCH_NAME}`\n🔗 URL: ${env.BUILD_URL}"
+                ]
+                httpRequest(
+                    httpMode: 'POST',
+                    contentType: 'APPLICATION_JSON',
+                    requestBody: groovy.json.JsonOutput.toJson(payload),
+                    url: 'https://discordapp.com/api/webhooks/1425086425749000214/sK2J8rThX3AkKAioDcVVax2ANIJ-Mg6CZfSkbXofOVNeDeO_iPxXhaUp5ooRM0Bv3wKX'
+                )
+            }
         }
     }
 }
